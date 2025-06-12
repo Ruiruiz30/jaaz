@@ -83,7 +83,7 @@ export default function PostEditor({
   }, [curPath])
 
   const renameFile = useCallback(
-    (title: string) => {
+    async (title: string) => {
       const fullContent = `# ${title}\n${editorContent}`
       const { buildApiUrl } = await import('@/utils/api')
       fetch(buildApiUrl('/api/rename_file'), {
@@ -94,7 +94,7 @@ export default function PostEditor({
         .then(async (data) => {
           if (data.path) {
             // successfully renamed, update to the new path
-            await fetch('/api/update_file', {
+            await fetch(buildApiUrl('/api/update_file'), {
               method: 'POST',
               body: JSON.stringify({ path: data.path, content: fullContent }),
             })
@@ -102,7 +102,7 @@ export default function PostEditor({
             dispatchEvent(new CustomEvent('refresh_workspace'))
           } else {
             // failed to rename, update to the old path
-            await fetch('/api/update_file', {
+            await fetch(buildApiUrl('/api/update_file'), {
               method: 'POST',
               body: JSON.stringify({ path: curPath, content: fullContent }),
             })
@@ -117,9 +117,10 @@ export default function PostEditor({
   )
 
   const updateFile = useCallback(
-    (content: string) => {
+    async (content: string) => {
       const fullContent = `# ${editorTitle}\n${content}`
-      fetch('/api/update_file', {
+      const { buildApiUrl } = await import('@/utils/api')
+      fetch(buildApiUrl('/api/update_file'), {
         method: 'POST',
         body: JSON.stringify({ path: curPath, content: fullContent }),
       })

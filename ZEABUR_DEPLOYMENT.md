@@ -74,6 +74,17 @@ python main.py
 - 当前已配置允许: `https://jaaz.zeabur.app` 和 `https://*.zeabur.app`
 - 如果前端域名变更，需要更新 `server/main.py` 中的 `allow_origins` 列表
 
+### 构建错误
+✅ 已修复的问题：
+- TypeScript错误：`'await' expressions are only allowed within async functions`
+- API调用错误：所有API调用现在都使用 `buildApiUrl()` 函数
+- 前端构建现在可以正常完成
+
+### API连接问题
+✅ 已修复的问题：
+- 405 Method Not Allowed错误：前端现在正确连接到后端域名
+- API URL配置：开发环境使用代理，生产环境直接连接到 `jaazapi.zeabur.app`
+
 ## 配置文件说明
 
 - `react/zbpack.json`: React前端的Zeabur构建配置
