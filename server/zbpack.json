@@ -1,0 +1,6 @@
+{
+  "framework": "python",
+  "start_command": "python main.py --port $PORT",
+  "install_command": "pip install -r requirements.txt",
+  "python_version": "3.11"
+} 

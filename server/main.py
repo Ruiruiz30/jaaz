@@ -57,9 +57,13 @@ if __name__ == "__main__":
         sorted(_bypass | current - {""}))
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--port', type=int, default=57988,
+    # 默认从环境变量获取端口，如果没有则使用57988
+    default_port = int(os.environ.get('PORT', '57988'))
+    parser.add_argument('--port', type=int, default=default_port,
                         help='Port to run the server on')
     args = parser.parse_args()
     import uvicorn
     print("🌟Starting server, UI_DIST_DIR:", os.environ.get('UI_DIST_DIR'))
-    uvicorn.run(app, host="127.0.0.1", port=args.port)
+    # 在生产环境中绑定到0.0.0.0以接受外部连接
+    host = "0.0.0.0" if os.environ.get('ENVIRONMENT') == 'production' else "127.0.0.1"
+    uvicorn.run(app, host=host, port=args.port)
