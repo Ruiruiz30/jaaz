@@ -9,6 +9,7 @@ from routers import config, agent, workspace, image_tools, canvas, ssl_test, cha
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 import asyncio
 import argparse
 from contextlib import asynccontextmanager
@@ -23,6 +24,20 @@ async def lifespan(app: FastAPI):
     # onshutdown
 
 app = FastAPI(lifespan=lifespan)
+
+# Configure CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5174",  # 本地开发前端
+        "http://127.0.0.1:5174",  # 本地开发前端
+        "https://jaaz.zeabur.app",  # 生产环境前端域名
+        "https://*.zeabur.app",  # 允许所有zeabur子域名
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],  # 允许所有HTTP方法
+    allow_headers=["*"],  # 允许所有请求头
+)
 
 # Include routers
 app.include_router(config.router)

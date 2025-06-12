@@ -63,8 +63,16 @@ python main.py
 
 1. 确保所有必要的API密钥已在Zeabur环境变量中配置
 2. 如果使用数据库，需要在Zeabur中配置相应的数据库服务
-3. 检查CORS设置是否正确配置以允许前端访问后端
+3. ✅ CORS已配置：后端已配置允许 `jaaz.zeabur.app` 访问 `jaazapi.zeabur.app`
 4. 确保所有依赖都在requirements.txt和package.json中正确列出
+
+## 故障排除
+
+### CORS错误
+如果遇到CORS错误：
+- 确保后端的CORS配置包含了前端域名
+- 当前已配置允许: `https://jaaz.zeabur.app` 和 `https://*.zeabur.app`
+- 如果前端域名变更，需要更新 `server/main.py` 中的 `allow_origins` 列表
 
 ## 配置文件说明
 
