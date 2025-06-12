@@ -13,9 +13,8 @@ export const useWebSocket = (sessionId?: string) => {
       return
     }
 
-    const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:'
-    const wsHost = window.location.host
-    const wsUrl = `${wsProtocol}//${wsHost}/ws?session_id=${sessionId}`
+    const { getWebSocketUrl } = await import('@/utils/api')
+    const wsUrl = getWebSocketUrl(`/ws?session_id=${sessionId}`)
 
     const socket = new WebSocket(wsUrl)
     webSocketRef.current = socket

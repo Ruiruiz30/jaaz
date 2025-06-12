@@ -226,10 +226,11 @@ function CustomPageMenu() {
       <Button
         size="sm"
         // variant="secondary"
-        onClick={() => {
+        onClick={async () => {
           // clear the canvas
           editor?.store.clear();
-          fetch("/api/create_file", {
+          const { buildApiUrl } = await import('@/utils/api')
+          fetch(buildApiUrl("/api/create_file"), {
             method: "POST",
             body: JSON.stringify({ rel_dir: "" }),
           })

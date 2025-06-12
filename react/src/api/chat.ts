@@ -1,7 +1,8 @@
 import { Message, Model } from '@/types/types'
+import { buildApiUrl } from '@/utils/api'
 
 export const getChatSession = async (sessionId: string) => {
-  const response = await fetch(`/api/chat_session/${sessionId}`)
+  const response = await fetch(buildApiUrl(`/api/chat_session/${sessionId}`))
   const data = await response.json()
   return data as Message[]
 }
@@ -13,7 +14,7 @@ export const sendMessages = async (payload: {
   textModel: Model
   imageModel: Model
 }) => {
-  const response = await fetch(`/api/chat`, {
+  const response = await fetch(buildApiUrl(`/api/chat`), {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -31,7 +32,7 @@ export const sendMessages = async (payload: {
 }
 
 export const cancelChat = async (sessionId: string) => {
-  const response = await fetch(`/api/cancel/${sessionId}`, {
+  const response = await fetch(buildApiUrl(`/api/cancel/${sessionId}`), {
     method: 'POST',
   })
   return await response.json()
