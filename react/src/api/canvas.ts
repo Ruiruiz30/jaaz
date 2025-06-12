@@ -8,8 +8,10 @@ export type ListCanvasesResponse = {
   created_at: string
 }
 
+import { buildApiUrl } from '@/utils/api'
+
 export async function listCanvases(): Promise<ListCanvasesResponse[]> {
-  const response = await fetch('/api/canvas/list')
+  const response = await fetch(buildApiUrl('/api/canvas/list'))
   return await response.json()
 }
 

@@ -23,7 +23,7 @@
 3. 选择 `react` 目录作为根目录
 4. Zeabur会自动检测到Node.js项目并构建React应用
 5. 配置环境变量以连接到后端API：
-   - `VITE_API_URL=https://your-backend-service.zeabur.app`
+   - `VITE_API_URL=https://jaazapi.zeabur.app`
 
 ### 方法二：单体部署
 
@@ -42,7 +42,7 @@
 - `UI_DIST_DIR`: 如果使用单体部署，指向前端构建目录
 
 ### 前端环境变量：
-- `VITE_API_URL`: 后端API的URL
+- `VITE_API_URL=https://jaazapi.zeabur.app`: 后端API的URL
 
 ## 本地开发
 

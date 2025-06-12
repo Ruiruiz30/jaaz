@@ -1,3 +1,5 @@
+import { buildApiUrl } from '@/utils/api'
+
 export async function listModels(): Promise<
   {
     provider: string
@@ -6,6 +8,6 @@ export async function listModels(): Promise<
     url: string
   }[]
 > {
-  const response = await fetch('/api/list_models')
+  const response = await fetch(buildApiUrl('/api/list_models'))
   return await response.json()
 }

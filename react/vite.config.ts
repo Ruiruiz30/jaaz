@@ -28,6 +28,11 @@ export default defineConfig(({ mode }) => {
       port: 5174,
       proxy: {},
     },
+    define: {
+      __API_URL__: JSON.stringify(
+        process.env.VITE_API_URL || (mode === 'development' ? '' : 'https://jaazapi.zeabur.app')
+      ),
+    },
   }
 
   // Configure server based on environment

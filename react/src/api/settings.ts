@@ -19,8 +19,10 @@
  *   // 显示初始设置向导
  * }
  */
+import { buildApiUrl } from '@/utils/api'
+
 export async function getSettingsFileExists(): Promise<{ exists: boolean }> {
-  const response = await fetch('/api/settings/exists')
+  const response = await fetch(buildApiUrl('/api/settings/exists'))
   return await response.json()
 }
 
@@ -36,7 +38,7 @@ export async function getSettingsFileExists(): Promise<{ exists: boolean }> {
  * const systemPrompt = settings.system_prompt;
  */
 export async function getSettings(): Promise<Record<string, unknown>> {
-  const response = await fetch('/api/settings')
+  const response = await fetch(buildApiUrl('/api/settings'))
   return await response.json()
 }
 
@@ -62,7 +64,7 @@ export async function updateSettings(
   status: string
   message: string
 }> {
-  const response = await fetch('/api/settings', {
+  const response = await fetch(buildApiUrl('/api/settings'), {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -86,7 +88,7 @@ export async function updateSettings(
  * // 'http://proxy.example.com:8080' - 使用指定代理
  */
 export async function getProxySettings(): Promise<Record<string, unknown>> {
-  const response = await fetch('/api/settings/proxy')
+  const response = await fetch(buildApiUrl('/api/settings/proxy'))
   return await response.json()
 }
 
@@ -118,7 +120,7 @@ export async function updateProxySettings(
   status: string
   message: string
 }> {
-  const response = await fetch('/api/settings/proxy', {
+  const response = await fetch(buildApiUrl('/api/settings/proxy'), {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

@@ -20,7 +20,8 @@ const SettingProviders = () => {
   useEffect(() => {
     const loadConfig = async () => {
       try {
-        const response = await fetch('/api/config')
+        const { buildApiUrl } = await import('@/utils/api')
+        const response = await fetch(buildApiUrl('/api/config'))
         const config: { [key: string]: LLMConfig } = await response.json()
 
         const res: { [key: string]: LLMConfig } = {}

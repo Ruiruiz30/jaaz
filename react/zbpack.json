@@ -2,5 +2,8 @@
   "build_command": "npm run build",
   "install_command": "npm install",
   "output_dir": "dist",
-  "node_version": "20"
+  "node_version": "20",
+  "environment": {
+    "VITE_API_URL": "https://jaazapi.zeabur.app"
+  }
 } 

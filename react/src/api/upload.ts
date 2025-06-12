@@ -1,3 +1,5 @@
+import { buildApiUrl } from '@/utils/api'
+
 export async function uploadImage(
   file: File,
   sessionId: string
@@ -5,7 +7,7 @@ export async function uploadImage(
   const formData = new FormData()
   formData.append('file', file)
   formData.append('session_id', sessionId)
-  const response = await fetch('/api/upload_image', {
+  const response = await fetch(buildApiUrl('/api/upload_image'), {
     method: 'POST',
     body: formData,
   })

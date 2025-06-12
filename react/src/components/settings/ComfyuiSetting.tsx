@@ -67,13 +67,16 @@ export default function ComfyuiSetting({
       return
     }
 
-    fetch(`/api/comfyui/object_info`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ url: comfyUrl }),
-    })
+    (async () => {
+      const { buildApiUrl } = await import('@/utils/api')
+      return fetch(buildApiUrl(`/api/comfyui/object_info`), {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ url: comfyUrl }),
+      })
+    })()
       .then((res) => res.json())
       .then((data) => {
         if (data?.CheckpointLoaderSimple?.input?.required?.ckpt_name?.[0]) {
