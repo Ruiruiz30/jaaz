@@ -21,7 +21,8 @@ export default function LeftSidebar({
   const [type, setType] = useState<'chat' | 'space'>('chat')
   useEffect(() => {
     const fetchChatSessions = async () => {
-      const sessions = await fetch('/api/list_chat_sessions', {
+      const { buildApiUrl } = await import('@/utils/api')
+    const sessions = await fetch(buildApiUrl('/api/list_chat_sessions'), {
         headers: {
           'Content-Type': 'application/json',
         },

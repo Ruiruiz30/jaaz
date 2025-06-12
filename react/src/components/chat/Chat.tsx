@@ -251,7 +251,8 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
 
     sessionIdRef.current = sessionId
 
-    const resp = await fetch('/api/chat_session/' + sessionId)
+    const { buildApiUrl } = await import('@/utils/api')
+    const resp = await fetch(buildApiUrl('/api/chat_session/' + sessionId))
     const data = await resp.json()
     setMessages(data?.length ? data : [])
 

@@ -87,7 +87,8 @@ const SettingProviders = () => {
     try {
       setErrorMessage('')
 
-      const response = await fetch('/api/config', {
+      const { buildApiUrl } = await import('@/utils/api')
+      const response = await fetch(buildApiUrl('/api/config'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

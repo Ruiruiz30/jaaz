@@ -58,30 +58,35 @@ export default function PostEditor({
   const [isLoading, setIsLoading] = useState(false)
   const [mediaFiles, setMediaFiles] = useState<MediaFile[]>([])
 
-  useEffect(() => {
-    setIsLoading(true)
-    fetch('/api/read_file', {
-      method: 'POST',
-      body: JSON.stringify({ path: curPath }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (typeof data.content == 'string') {
-          const { title, content } = getTitleAndContent(data.content)
-          setEditorTitle(title)
-          setEditorContent(content)
-          mdxEditorRef.current?.setMarkdown(content)
-          setIsLoading(false)
-        } else {
-          toast.error('Failed to read file ' + curPath)
-        }
+    useEffect(() => {
+    const loadFile = async () => {
+      setIsLoading(true)
+      const { buildApiUrl } = await import('@/utils/api')
+      fetch(buildApiUrl('/api/read_file'), {
+        method: 'POST',
+        body: JSON.stringify({ path: curPath }),
       })
+        .then((res) => res.json())
+        .then((data) => {
+          if (typeof data.content == 'string') {
+            const { title, content } = getTitleAndContent(data.content)
+            setEditorTitle(title)
+            setEditorContent(content)
+            mdxEditorRef.current?.setMarkdown(content)
+            setIsLoading(false)
+          } else {
+            toast.error('Failed to read file ' + curPath)
+          }
+        })
+    }
+    loadFile()
   }, [curPath])
 
   const renameFile = useCallback(
     (title: string) => {
       const fullContent = `# ${title}\n${editorContent}`
-      fetch('/api/rename_file', {
+      const { buildApiUrl } = await import('@/utils/api')
+      fetch(buildApiUrl('/api/rename_file'), {
         method: 'POST',
         body: JSON.stringify({ old_path: curPath, new_title: title }),
       })

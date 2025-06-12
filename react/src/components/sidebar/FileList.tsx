@@ -30,7 +30,8 @@ export default function FileList({
 
   const handleRevealInExplorer = async (filePath: string) => {
     try {
-      const response = await fetch('/api/reveal_in_explorer', {
+      const { buildApiUrl } = await import('@/utils/api')
+      const response = await fetch(buildApiUrl('/api/reveal_in_explorer'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

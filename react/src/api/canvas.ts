@@ -31,7 +31,7 @@ export async function createCanvas(data: {
     url: string
   }
 }): Promise<{ id: string }> {
-  const response = await fetch('/api/canvas/create', {
+  const response = await fetch(buildApiUrl('/api/canvas/create'), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
